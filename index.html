@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPLGO!CUAN - Website Jualan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .popup-overlay {
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .popup-content {
+            animation: slideUp 0.4s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #3B82F6;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            background-color: #3B82F6;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Welcome Popup -->
+    <div id="welcomePopup" class="fixed inset-0 bg-black bg-opacity-50 popup-overlay flex items-center justify-center z-50 p-4">
+        <div class="popup-content bg-white rounded-2xl max-w-md w-full mx-4 overflow-hidden shadow-2xl">
+            <!-- Hero Image 16:9 -->
+            <div class="relative h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <svg class="w-24 h-24 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V7l-10-5z"/>
+                    <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" fill="none"/>
+                </svg>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
+            
+            <div class="p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-3 text-center">Selamat Datang!</h2>
+                <p class="text-gray-600 text-center mb-6 leading-relaxed">
+                    Temukan produk terbaik dengan kualitas premium dan harga terjangkau. Dapatkan penawaran menarik khusus untuk Anda!
+                </p>
+                <button onclick="closePopup()" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
+                    Mulai Belanja
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Profile Bar -->
+    <div class="bg-gradient-to-r from-emerald-500 to-indigo-600 text-white py-3">
+        <div class="max-w-6xl mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-sm"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-medium">Selamat datang, User!</p>
+                    <p class="text-xs opacity-90">Member Premium</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-bell text-lg hover:text-amber-300 cursor-pointer transition-colors"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                        <img src="logo rplcaricuan2.png" alt="Logo" class="w-6 h-6 object-contain">
+                    </div>
+                    <span class="text-xl font-bold text-gray-800">RPL Store</span>
+                </div>
+                
+                <!-- Navigation Links - Desktop -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <button onclick="showProfile()" class="flex items-center space-x-2 text-gray-600 hover:text-emerald-600 transition-colors">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="font-medium">Profil</span>
+                    </button>
+                    <a href="#docs-section" class="flex items-center space-x-2 text-gray-600 hover:text-indigo-600 transition-colors">
+                        <img src="logo rplcaricuan2.png" alt="Docs" class="w-5 h-5 object-contain">
+                        <span class="font-medium">Dokumentasi</span>
+                    </a>
+                </div>
+
+                <!-- Navigation Links - Mobile -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <button onclick="showProfile()" class="text-gray-600 hover:text-emerald-600 transition-colors">
+                        <i class="fas fa-user-circle text-xl"></i>
+                    </button>
+                    <a href="#docs-section" class="text-gray-600 hover:text-indigo-600 transition-colors">
+                        <img src="logo rplcaricuan2.png" alt="Docs" class="w-6 h-6 object-contain">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header with Logo -->
+    <header id="home" class="bg-gradient-to-br from-emerald-50 via-indigo-50 to-violet-50 py-16">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <!-- Logo Placeholder -->
+            <div class="mb-8">
+                <div class="inline-flex items-center justify-center w-32 h-32 bg-gradient-to-br from-emerald-500 via-indigo-500 to-violet-600 rounded-3xl shadow-2xl">
+                    <img src="logo rplcaricuan2.png" alt="Logo RPL Store" class="w-20 h-20 object-contain rounded-2xl bg-white/10 p-2">
+                </div>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">RPLGO!CUAN</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">Ini adalah situs web jualan kami, order disini kalau alas jalan. Kiranya tampilan ini memudahkanmu dalam membeli sesuatu!</p>
+            
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-3 gap-4 md:gap-6 max-w-md mx-auto mt-12">
+                <div class="text-center">
+                    <div class="text-xl md:text-2xl font-bold text-emerald-600">10+</div>
+                    <div class="text-xs md:text-sm text-gray-500">Pelanggan</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-xl md:text-2xl font-bold text-indigo-600">4+</div>
+                    <div class="text-xs md:text-sm text-gray-500">Produk</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-xl md:text-2xl font-bold text-violet-600">5</div>
+                    <div class="text-xs md:text-sm text-gray-500">Rating</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Recommendations Section -->
+    <section id="recommendations" class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Rekomendasi</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-3xl shadow-sm hover:shadow-xl overflow-hidden border border-gray-50 transition-all duration-300">
+                    <div class="relative aspect-square overflow-hidden">
+                        <img src="wa1.jpg" alt="Produk Premium A" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3 bg-emerald-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            Paling Lezat
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold text-gray-800 mb-1">Risol Ayam</h3>
+                        <p class="text-sm text-gray-500 mb-3">Banyak ayamnya, sayurnya juga. risol nya tebal.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="text-2xl font-bold text-emerald-600">Rp 2.000/pcs</p>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-amber-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">5</span>
+                            </div>
+                        </div>
+                        <button onclick="orderWhatsApp('Risol Ayam', '2000')" class="whatsapp-btn w-full text-white py-3 px-4 rounded-2xl font-semibold flex items-center justify-center space-x-2 shadow-lg">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                            <span>Pesan Sekarang</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card bg-white rounded-3xl shadow-sm hover:shadow-xl overflow-hidden border border-gray-50 transition-all duration-300">
+                    <div class="relative aspect-square overflow-hidden">
+                        <img src="wa5.jpg" alt="Produk Unggulan B" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3 bg-indigo-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            Paling Segar
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold text-gray-800 mb-1">cendol</h3>
+                        <p class="text-sm text-gray-500 mb-3">Ada yang panas, ada yang dingin, kalo salahsatunya ga ada harap maklumin.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="text-2xl font-bold text-emerald-600">Rp 5.000/Cup</p>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-amber-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">5</span>
+                            </div>
+                        </div>
+                        <button onclick="orderWhatsApp('Cendol', '5000')" class="whatsapp-btn w-full text-white py-3 px-4 rounded-2xl font-semibold flex items-center justify-center space-x-2 shadow-lg">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                            <span>Pesan Sekarang</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Kami Section -->
+    <section id="menu" class="py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Menu Kami</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Menu Items -->
+                <div class="product-card bg-white rounded-3xl shadow-sm hover:shadow-xl overflow-hidden border border-gray-50 transition-all duration-300">
+                    <div class="relative aspect-square overflow-hidden">
+                        <img src="wa2.jpg" alt="Menu Spesial 1" class="w-full h-full object-cover">
+                        <div class="absolute top-3 left-3 bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            Spesial
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold text-gray-800 mb-1">Gocuan Rainbow</h3>
+                        <p class="text-sm text-gray-500 mb-3">Rasakan aja sendiri, enak kok!</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="text-2xl font-bold text-emerald-600">Rp 5.000</p>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-amber-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">5</span>
+                            </div>
+                        </div>
+                        <button onclick="orderWhatsApp('Gocuan Rainbow', '5000')" class="whatsapp-btn w-full text-white py-3 px-4 rounded-2xl font-semibold flex items-center justify-center space-x-2 shadow-lg">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                            <span>Pesan Sekarang</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-3xl shadow-sm hover:shadow-xl overflow-hidden border border-gray-50 transition-all duration-300">
+                    <div class="relative aspect-square overflow-hidden">
+                        <img src="wa3.jpg" alt="Menu Favorit 2" class="w-full h-full object-cover">
+                        <div class="absolute top-3 left-3 bg-violet-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            Paling Elegan
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold text-gray-800 mb-1">Pisang Citer</h3>
+                        <p class="text-sm text-gray-500 mb-3">Goreng pisang, tapi pakai nama teknis RPL. Enak!</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="text-2xl font-bold text-emerald-600">Rp 1.000/pcs</p>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-amber-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">5</span>
+                            </div>
+                        </div>
+                        <button onclick="orderWhatsApp('Pisang Citer', '1000')" class="whatsapp-btn w-full text-white py-3 px-4 rounded-2xl font-semibold flex items-center justify-center space-x-2 shadow-lg">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                            <span>Pesan Sekarang</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-3xl shadow-sm hover:shadow-xl overflow-hidden border border-gray-50 transition-all duration-300">
+                    <div class="relative aspect-square overflow-hidden">
+                        <img src="wa4.jpg" alt="Menu Populer 3" class="w-full h-full object-cover">
+                        <div class="absolute top-3 left-3 bg-fuchsia-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            Paling Crispy
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold text-gray-800 mb-1">Sosis Cigo</h3>
+                        <p class="text-sm text-gray-500 mb-3">Sosis nya enak, crispy, pokoknya the best!</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="text-2xl font-bold text-emerald-600">Rp 1.000/pcs</p>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-amber-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">5</span>
+                            </div>
+                        </div>
+                        <button onclick="orderWhatsApp('Sosis Cigo', '1000')" class="whatsapp-btn w-full text-white py-3 px-4 rounded-2xl font-semibold flex items-center justify-center space-x-2 shadow-lg">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                            <span>Pesan Sekarang</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-3xl shadow-sm hover:shadow-xl overflow-hidden border border-gray-50 transition-all duration-300">
+                    <div class="relative aspect-square overflow-hidden">
+                        <img src="wa1.jpg" alt="Menu Eksklusif 4" class="w-full h-full object-cover">
+                        <div class="absolute top-3 left-3 bg-teal-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            Favorit
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold text-gray-800 mb-1">Risol Ayam</h3>
+                        <p class="text-sm text-gray-500 mb-3">Produk terbaik yang pernah ada.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="text-2xl font-bold text-emerald-600">Rp 2.000/pcs</p>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-amber-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">5</span>
+                            </div>
+                        </div>
+                        <button onclick="orderWhatsApp('Risol Ayam', '2000')" class="whatsapp-btn w-full text-white py-3 px-4 rounded-2xl font-semibold flex items-center justify-center space-x-2 shadow-lg">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                            <span>Pesan Sekarang</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-3xl shadow-sm hover:shadow-xl overflow-hidden border border-gray-50 transition-all duration-300">
+                    <div class="relative aspect-square overflow-hidden">
+                        <img src="wa5.jpg" alt="Menu Signature 5" class="w-full h-full object-cover">
+                        <div class="absolute top-3 left-3 bg-cyan-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            Favorit
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold text-gray-800 mb-1">Cendol</h3>
+                        <p class="text-sm text-gray-500 mb-3">Minuman yang paling segar!</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="text-2xl font-bold text-green-600">Rp 5.000</p>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">5</span>
+                            </div>
+                        </div>
+                        <button onclick="orderWhatsApp('Cendol', '5000')" class="whatsapp-btn w-full text-white py-3 px-4 rounded-2xl font-semibold flex items-center justify-center space-x-2 shadow-lg">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                            <span>Pesan Sekarang</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section id="info" class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Informasi</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                <!-- Left Column -->
+                <div class="space-y-8">
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-credit-card text-orange-500 mr-3"></i>
+                            Cara Belanja
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed">Masuk ke rplgocuan.github.io - pilih produk - klik pesan sekarang - Lanjut ke WhatsApp tuk pembayaran lanjutan.</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-100">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-shipping-fast mr-3"></i>
+                             Pengiriman Cepat
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed">Pengiriman cepat! <br> Setelah bayar, tim kami akan mengantarkannya ke kelasmu atau mengirimu pesan untuk kamu datang.</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-2xl border border-purple-100">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-headset text-purple-500 mr-3"></i>
+                            Customer Service 24/7
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed">Tim customer service kami siap membantu Anda kapan saja dengan masalah apa saja pada produk kami.</p>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-8">
+                    <div class="bg-gradient-to-br from-orange-50 to-red-50 p-6 rounded-2xl border border-orange-100">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-credit-card text-orange-500 mr-3"></i>
+                            Pembayaran Mudah
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed">Tersedia berbagai metode pembayaran yang aman dan mudah seperti transfer bank, e-wallet, dan COD untuk kemudahan berbelanja Anda.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full mx-4 overflow-hidden shadow-2xl">
+            <div class="bg-gradient-to-r from-green-500 to-blue-600 p-6 text-white">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-2xl font-bold">Profil Saya</h2>
+                    <button onclick="closeModal('profileModal')" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <div class="text-center mb-6">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">User Premium</h3>
+                    <p class="text-gray-500">Member sejak 2024</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                        <span class="text-gray-600">Status</span>
+                        <span class="text-green-600 font-semibold">Premium</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                        <span class="text-gray-600">Total Pesanan</span>
+                        <span class="text-blue-600 font-semibold">25</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                        <span class="text-gray-600">Rating</span>
+                        <div class="flex items-center space-x-1">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <span class="text-gray-800 font-semibold">4.9</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Documentation Modal -->
+    <div id="docsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full mx-4 overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-2xl font-bold">Dokumentasi</h2>
+                    <button onclick="closeModal('docsModal')" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-shopping-cart text-blue-500 mr-3"></i>
+                            Cara Berbelanja
+                        </h3>
+                        <ol class="list-decimal list-inside space-y-2 text-gray-600 ml-6">
+                            <li>Pilih produk yang diinginkan</li>
+                            <li>Klik tombol "Pesan Sekarang"</li>
+                            <li>Akan diarahkan ke WhatsApp</li>
+                            <li>Konfirmasi pesanan dengan admin</li>
+                            <li>Lakukan pembayaran sesuai instruksi</li>
+                            <li>Pesanan akan diproses dan dikirim</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-credit-card text-green-500 mr-3"></i>
+                            Metode Pembayaran
+                        </h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                            <li>Transfer Bank (BCA, Mandiri, BRI, BNI)</li>
+                            <li>E-Wallet (OVO, GoPay, DANA, ShopeePay)</li>
+                            <li>Cash on Delivery (COD) - area tertentu</li>
+                            <li>QRIS - semua bank dan e-wallet</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-truck text-orange-500 mr-3"></i>
+                            Pengiriman
+                        </h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                            <li>JNE - 1-3 hari kerja</li>
+                            <li>J&T Express - 1-2 hari kerja</li>
+                            <li>SiCepat - 1-2 hari kerja</li>
+                            <li>Grab/Gojek - same day (area Jakarta)</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-headset text-purple-500 mr-3"></i>
+                            Customer Service
+                        </h3>
+                        <div class="space-y-2 text-gray-600 ml-6">
+                            <p><strong>WhatsApp:</strong> +62 123 456 789</p>
+                            <p><strong>Email:</strong> support@tokoku.com</p>
+                            <p><strong>Jam Operasional:</strong> 08:00 - 22:00 WIB</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">RPLGO!CUAN</h3>
+                    <p class="text-gray-300 leading-relaxed">Warung IT paling amanah sepanjang segala masa.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Kontak</h3>
+                    <div class="space-y-2 text-gray-300">
+                        <p><i class="fas fa-phone mr-2"></i> +62 831-5575-4286</p>
+                        <p><i class="fas fa-map-marker-alt mr-2"></i> Pematangsiantar, Indonesia</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 RPLGO!CUAN. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Close popup function
+        function closePopup() {
+            const popup = document.getElementById('welcomePopup');
+            popup.style.animation = 'fadeOut 0.3s ease-out forwards';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 300);
+        }
+
+        // Auto close popup after 5 seconds
+        setTimeout(() => {
+            const popup = document.getElementById('welcomePopup');
+            if (popup.style.display !== 'none') {
+                closePopup();
+            }
+        }, 5000);
+
+        // Smooth scroll behavior for better UX
+        document.documentElement.style.scrollBehavior = 'smooth';
+
+        // WhatsApp order function
+        function orderWhatsApp(productName, price) {
+            const phoneNumber = '+6283155754286'; // Ganti dengan nomor WhatsApp Anda
+            const message = `Halo! Saya tertarik untuk memesan ${productName} dengan harga Rp ${parseInt(price).toLocaleString('id-ID')}. Mohon informasi lebih lanjut.`;
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Modal functions
+        function showProfile() {
+            document.getElementById('profileModal').classList.remove('hidden');
+        }
+
+        function showDocs() {
+            document.getElementById('docsModal').classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('fixed') && e.target.classList.contains('inset-0')) {
+                e.target.classList.add('hidden');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fadeOut animation to CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96cf6e8d734b9c9e',t:'MTc1NDgyODI2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
