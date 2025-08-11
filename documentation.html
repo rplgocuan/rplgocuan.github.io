@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Gambar - RPLGO!CUAN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .image-card {
+            transition: all 0.3s ease;
+        }
+        
+        .image-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .image-overlay {
+            background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.1));
+            transition: all 0.3s ease;
+        }
+        
+        .image-card:hover .image-overlay {
+            background: linear-gradient(135deg, rgba(0,0,0,0.2), rgba(0,0,0,0.05));
+        }
+        
+        .back-btn {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .lightbox {
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .lightbox-content {
+            animation: slideUp 0.4s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                        <img src="logo rplcaricuan2.png" alt="Logo" class="w-6 h-6 object-contain">
+                    </div>
+                    <span class="text-xl font-bold text-gray-800">RPL Store</span>
+                </div>
+                
+                <!-- Back Button -->
+                <button onclick="goBack()" class="back-btn flex items-center space-x-2 text-white py-2 px-4 rounded-xl font-semibold shadow-lg">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Kembali</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-gradient-to-br from-emerald-50 via-indigo-50 to-violet-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="mb-8">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-emerald-500 via-indigo-500 to-violet-600 rounded-2xl shadow-xl">
+                    <i class="fas fa-images text-white text-2xl"></i>
+                </div>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">Dokumentasi Gambar</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+                Koleksi foto produk dan momen terbaik dari RPLGO!CUAN. Lihat kualitas dan tampilan produk kami secara detail!
+            </p>
+            
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-4 md:gap-6 max-w-md mx-auto mt-12">
+                <div class="text-center">
+                    <div class="text-xl md:text-2xl font-bold text-emerald-600">15+</div>
+                    <div class="text-xs md:text-sm text-gray-500">Foto Produk</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-xl md:text-2xl font-bold text-indigo-600">HD</div>
+                    <div class="text-xs md:text-sm text-gray-500">Kualitas</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-xl md:text-2xl font-bold text-violet-600">100%</div>
+                    <div class="text-xs md:text-sm text-gray-500">Real Photo</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Gallery Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Section Title -->
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Galeri Produk</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Semua foto diambil langsung dari produk asli. Klik gambar untuk melihat detail lebih jelas.
+                </p>
+            </div>
+
+            <!-- Image Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Image 1 -->
+                <div class="image-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                    <div class="relative aspect-video overflow-hidden group cursor-pointer" onclick="openLightbox('wa1.jpg', 'Risol Ayam Premium')">
+                        <img src="wa1.jpg" alt="Risol Ayam Premium" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="image-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="text-white text-center">
+                                <i class="fas fa-expand text-2xl mb-2"></i>
+                                <p class="text-sm font-medium">Lihat Detail</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Risol Ayam Premium</h3>
+                        <p class="text-sm text-gray-600">Risol dengan isian ayam berlimpah dan sayuran segar</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-emerald-600 font-bold">Rp 2.000/pcs</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-amber-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image 2 -->
+                <div class="image-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                    <div class="relative aspect-video overflow-hidden group cursor-pointer" onclick="openLightbox('wa2.jpg', 'Gocuan Rainbow Special')">
+                        <img src="wa2.jpg" alt="Gocuan Rainbow Special" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="image-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="text-white text-center">
+                                <i class="fas fa-expand text-2xl mb-2"></i>
+                                <p class="text-sm font-medium">Lihat Detail</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Gocuan Rainbow Special</h3>
+                        <p class="text-sm text-gray-600">Minuman warna-warni dengan cita rasa yang unik</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-emerald-600 font-bold">Rp 5.000</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-amber-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image 3 -->
+                <div class="image-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                    <div class="relative aspect-video overflow-hidden group cursor-pointer" onclick="openLightbox('wa3.jpg', 'Pisang Citer Crispy')">
+                        <img src="wa3.jpg" alt="Pisang Citer Crispy" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="image-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="text-white text-center">
+                                <i class="fas fa-expand text-2xl mb-2"></i>
+                                <p class="text-sm font-medium">Lihat Detail</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Pisang Citer Crispy</h3>
+                        <p class="text-sm text-gray-600">Pisang goreng dengan balutan renyah dan manis</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-emerald-600 font-bold">Rp 1.000/pcs</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-amber-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image 4 -->
+                <div class="image-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                    <div class="relative aspect-video overflow-hidden group cursor-pointer" onclick="openLightbox('wa4.jpg', 'Sosis Cigo Spesial')">
+                        <img src="wa4.jpg" alt="Sosis Cigo Spesial" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="image-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="text-white text-center">
+                                <i class="fas fa-expand text-2xl mb-2"></i>
+                                <p class="text-sm font-medium">Lihat Detail</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Sosis Cigo Spesial</h3>
+                        <p class="text-sm text-gray-600">Sosis crispy dengan tekstur yang sempurna</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-emerald-600 font-bold">Rp 1.000/pcs</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-amber-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image 5 -->
+                <div class="image-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                    <div class="relative aspect-video overflow-hidden group cursor-pointer" onclick="openLightbox('wa5.jpg', 'Cendol Segar Dingin')">
+                        <img src="wa5.jpg" alt="Cendol Segar Dingin" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="image-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="text-white text-center">
+                                <i class="fas fa-expand text-2xl mb-2"></i>
+                                <p class="text-sm font-medium">Lihat Detail</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Cendol Segar Dingin</h3>
+                        <p class="text-sm text-gray-600">Minuman tradisional yang menyegarkan</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-emerald-600 font-bold">Rp 5.000/cup</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-amber-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image 6 - Behind the scenes -->
+                <div class="image-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                    <div class="relative aspect-video overflow-hidden group cursor-pointer" onclick="openLightbox('logo rplcaricuan2.png', 'Behind The Scenes')">
+                        <img src="logo rplcaricuan2.png" alt="Behind The Scenes" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="image-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="text-white text-center">
+                                <i class="fas fa-expand text-2xl mb-2"></i>
+                                <p class="text-sm font-medium">Lihat Detail</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Behind The Scenes</h3>
+                        <p class="text-sm text-gray-600">Proses pembuatan produk berkualitas</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-gray-600 font-medium">Process</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-heart text-red-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">Love</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Images can be added here -->
+                <div class="image-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                    <div class="relative aspect-video overflow-hidden group cursor-pointer" onclick="openLightbox('wa1.jpg', 'Produk Terlaris')">
+                        <img src="wa1.jpg" alt="Produk Terlaris" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="image-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="text-white text-center">
+                                <i class="fas fa-expand text-2xl mb-2"></i>
+                                <p class="text-sm font-medium">Lihat Detail</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Produk Terlaris</h3>
+                        <p class="text-sm text-gray-600">Risol ayam favorit pelanggan</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-emerald-600 font-bold">Best Seller</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-fire text-orange-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">Hot</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="image-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                    <div class="relative aspect-video overflow-hidden group cursor-pointer" onclick="openLightbox('wa5.jpg', 'Minuman Favorit')">
+                        <img src="wa5.jpg" alt="Minuman Favorit" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="image-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="text-white text-center">
+                                <i class="fas fa-expand text-2xl mb-2"></i>
+                                <p class="text-sm font-medium">Lihat Detail</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Minuman Favorit</h3>
+                        <p class="text-sm text-gray-600">Cendol yang selalu habis terjual</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-emerald-600 font-bold">Popular</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-snowflake text-blue-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">Fresh</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="image-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                    <div class="relative aspect-video overflow-hidden group cursor-pointer" onclick="openLightbox('wa3.jpg', 'Snack Terbaik')">
+                        <img src="wa3.jpg" alt="Snack Terbaik" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="image-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="text-white text-center">
+                                <i class="fas fa-expand text-2xl mb-2"></i>
+                                <p class="text-sm font-medium">Lihat Detail</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Snack Terbaik</h3>
+                        <p class="text-sm text-gray-600">Pisang citer yang selalu fresh</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-emerald-600 font-bold">Fresh Daily</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-leaf text-green-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">Natural</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-80 lightbox hidden flex items-center justify-center z-50 p-4">
+        <div class="lightbox-content bg-white rounded-2xl max-w-4xl w-full mx-4 overflow-hidden shadow-2xl">
+            <div class="relative">
+                <img id="lightbox-image" src="" alt="" class="w-full aspect-video object-cover">
+                <button onclick="closeLightbox()" class="absolute top-4 right-4 bg-black bg-opacity-50 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-70 transition-all duration-300">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <h3 id="lightbox-title" class="text-2xl font-bold text-gray-800 mb-2"></h3>
+                <p class="text-gray-600">Klik di luar gambar atau tombol X untuk menutup</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <section class="py-16 bg-gradient-to-br from-emerald-50 to-indigo-50">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Tertarik dengan Produk Kami?</h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                Semua produk yang Anda lihat di dokumentasi ini tersedia setiap hari. Pesan sekarang dan nikmati kelezatannya!
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="goToStore()" class="bg-gradient-to-r from-emerald-500 to-indigo-600 text-white py-3 px-8 rounded-xl font-semibold hover:from-emerald-600 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-shopping-cart mr-2"></i>
+                    Belanja Sekarang
+                </button>
+                <button onclick="contactWhatsApp()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-8 rounded-xl font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <i class="fab fa-whatsapp mr-2"></i>
+                    Hubungi Kami
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">RPLGO!CUAN</h3>
+                    <p class="text-gray-300 leading-relaxed">Dokumentasi lengkap produk berkualitas dari warung IT paling amanah.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Navigasi</h3>
+                    <div class="space-y-2 text-gray-300">
+                        <p><i class="fas fa-home mr-2"></i> Beranda</p>
+                        <p><i class="fas fa-images mr-2"></i> Dokumentasi</p>
+                        <p><i class="fas fa-utensils mr-2"></i> Menu</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Kontak</h3>
+                    <div class="space-y-2 text-gray-300">
+                        <p><i class="fas fa-phone mr-2"></i> +62 831-5575-4286</p>
+                        <p><i class="fas fa-map-marker-alt mr-2"></i> Pematangsiantar, Indonesia</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 RPLGO!CUAN. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Back button function
+        function goBack() {
+            window.history.back();
+        }
+
+        // Go to store function
+        function goToStore() {
+            window.location.href = 'index.html'; // Adjust path as needed
+        }
+
+        // WhatsApp contact function
+        function contactWhatsApp() {
+            const phoneNumber = '+6283155754286';
+            const message = 'Halo! Saya tertarik dengan produk RPLGO!CUAN setelah melihat dokumentasi gambar. Mohon informasi lebih lanjut.';
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Lightbox functions
+        function openLightbox(imageSrc, title) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            
+            lightboxImage.src = imageSrc;
+            lightboxImage.alt = title;
+            lightboxTitle.textContent = title;
+            
+            lightbox.classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.animation = 'fadeOut 0.3s ease-out forwards';
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightbox.style.animation = '';
+            }, 300);
+        }
+
+        // Close lightbox when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'lightbox') {
+                closeLightbox();
+            }
+        });
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // Smooth scroll behavior
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>
